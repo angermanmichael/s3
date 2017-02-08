@@ -1,0 +1,284 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+-->
+<html>
+  <head>
+    <meta name="verify-v1" content="+Puwunn3zUJtW8paJCUJJ7Bxmq7zcohmjQT261i5S7M=" />
+    <title>ZratoMedia - providing open source solutions in Javascript</title>
+    <style type="text/css">
+body {
+  font-family: arial, sans-serif;
+  margin: 2em 5em;
+  padding: 0.5em;
+  border: 1px solid lightgrey;
+}
+
+.tabbar {
+  border-top: 5px solid orange;
+  clear: both;
+}
+
+.tab {
+  float: left;
+  padding: .1em 1em;
+  background-color: #339900;
+  color: white;
+  font-weight: bold;
+  font-size: .9em;
+}
+
+.selectedTab {
+  background-color: lightgrey;
+  color: black;
+}
+
+.content {
+  clear: both;
+  padding-top: 0.5em;
+}
+
+.header {
+  font-size: 1.5em;
+  font-weight: bold;
+  padding-bottom: .5em;
+}
+
+.smaller {
+  font-size: smaller;
+}
+    </style>
+    <script type="text/javascript">
+    var APPLICATION_TABS = ['home', 'products', 'services', 'contact', 'projects'];
+    var tabAnchorPrefix = "#tab-";
+
+    function changeActiveTab(activeTab, updateAnchor) {
+      if (activeTab == undefined)
+        return false;
+      if (updateAnchor)
+        location.href = tabAnchorPrefix + activeTab.id;
+      for (var idx in APPLICATION_TABS) {
+        var tab = APPLICATION_TABS[idx];
+        if (tab == activeTab.id) {
+          document.getElementById(tab).className = 'tab selectedTab';
+          document.getElementById(tab + 'Div').style.display = 'block';
+        } else {
+          document.getElementById(tab).className = 'tab';
+          document.getElementById(tab + 'Div').style.display = 'none';
+        }
+      }
+    }
+
+    function activeTabFromAnchor() {
+      // first check for match to tab name
+      var tabAnchorRE = new RegExp(tabAnchorPrefix + "(.*)$", "g");
+      var tabAnchor = tabAnchorRE.exec(location.href);
+      if (tabAnchor && tabAnchor.length == 2) {
+        var tabAnchorObj = document.getElementById(tabAnchor[1]);
+        if (tabAnchorObj != undefined) {
+          changeActiveTab(tabAnchorObj, false);
+          return;
+        }
+      }
+      // anchor might be inside hidden tab, if so then activate tab
+      var anchorIdx = location.href.indexOf("#");
+      if (anchorIdx == -1)
+        return;
+      var urlAnchor = location.href.substr(anchorIdx + 1);
+      var anchors = document.getElementsByTagName("a");
+      for (var idx in anchors) {
+        var anchor = anchors[idx];
+        if (anchor.name == urlAnchor) {
+          // found anchor, now find parent tab
+          var parent = anchor;
+          do {
+            parent = parent.parentNode;
+          } while (parent && ! /.*Div$/.test(parent.id))
+          if (! parent)
+            return; // failed
+          var divMatch = /^(.*)Div$/g.exec(parent.id);
+          if (! divMatch || divMatch.length != 2)
+            return; // failed
+          var tabAnchorObj = document.getElementById(divMatch[1]);
+          if (tabAnchorObj == undefined)
+            return; // failed
+          changeActiveTab(tabAnchorObj, false); //SUCCESS!
+          // need to set location again as browser can't navigate
+          // to anchor in hidden tab
+          location.href = location.href;
+        }
+      }
+    }
+    </script>
+  </head>
+
+  <body onload="activeTabFromAnchor();">
+    <table border="0" cellspacing="0" width="100%">
+      <tbody>
+        <tr>
+          <td align="left" valign="top"><a href="http://www.zrato.com/">
+	  <img src="http://zrato.s3.amazonaws.com/images/zratomedia.gif" alt="Zrato Media" border="0"></a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="tab selectedTab" onclick="changeActiveTab(this, true);" style="cursor: pointer;" id="home">Home</div>
+
+    <div class="tab" onclick="changeActiveTab(this, true);" style="cursor: pointer;" id="products">Products</div>
+    <div class="tab" onclick="changeActiveTab(this, true);" style="cursor: pointer;" id="services">Services</div>
+    <div class="tab" onclick="changeActiveTab(this, true);" style="cursor: pointer;" id="contact">Contact</div>
+    <div class="tab" onclick="changeActiveTab(this, true);" style="cursor: pointer;" id="projects">Projects</div>
+    <div class="tabbar"></div>
+
+    <div class="content" id="homeDiv" style="display: block;">
+      <h3>We design and develop open source software products in
+      <a href="http://nodejs.org">Node.js</a>
+      and
+      <a href="https://www.ruby-lang.org/en/">Ruby</a>
+      </h3>
+      <p>
+      </p>
+      <p>Our Core Competencies Include:</p>
+      <ul>
+
+	<li><b>User Interface</b>
+		&nbsp; &nbsp; &nbsp;
+	                   Components:
+                     <a href="https://angularjs.org">angular</a>
+	                   <a href="http://documentcloud.github.com/backbone/">backbone</a>
+	                   <a href="http://getbootstrap.com">bootstrap</a>
+	                   <a href="http://expressjs.com">express</a>
+	                   <a href="http://jquery.com">jquery</a>
+	                   <br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	</li>
+
+	<li><b>Stack</b>
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	                   Components:
+	                   <a href="http://redis.io">redis</a>
+	                   <a href="http://www.postgresql.org">postgresql</a>
+	                   <a href="http://cassandra.apache.org">cassandra</a>
+	                   <br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	</li>
+
+        <li><b>EC2</b>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        Our systems leverage Amazon's massively scalable Xen hypervisor.<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	</li>
+
+        <li><b>Search</b>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        Open Source Search based on <a href="http://www.elasticsearch.org/">elasticsearch</a><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	</li>
+
+  <li><b>Queue</b>
+  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+  Open source message broker based on <a href="http://www.rabbitmq.com/">rabbitmq</a><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </li>
+
+
+        <li><b>Graphics</b>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        Data visualization systems based on
+        <a href="http://mbostock.github.com/d3/">D3</a>
+        .<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	</li>
+      </ul>
+      <p></p>
+    </div>
+
+    <div class="content" id="productsDiv" style="display: none;">
+    <h4>
+    Over the years we have developed many different product lines used by thousands of customers.
+    </h4>
+    <p>More recently these products include large scale web applications.<br><br>
+    We are able to quickly deploy our projects to Amazon EC2 running
+    <a href="http://www.ubuntu.com">Ubuntu</a>
+    </p>
+    </div>
+
+    <div class="content" id="servicesDiv" style="display: none;">
+      <h4>Getting our customer's up and running as quickly as possible with Node.js
+      requires many years of Javascript experience and familiarity with all of the associated
+      modules that leverage Node.js</h4>
+      <p> Because we have developed so many software products over the years we know what it takes to get
+      a product out the door.  The complexity of delivering a product to the market place should not be
+      underestimated, and so we understand the intricacies and details of the monumental task.
+      </p>
+	</div>
+
+    <div class="content" id="contactDiv" style="display: none;">
+      <h3>About us</h3>
+      <p>The
+
+      <b><a href="http://www.arcadiangroup.org">Arcadian Group LLC</a></b>
+
+	     is a small, private holding company based in Albuquerque, New Mexico
+       and Corvallis, Oregon.
+             We specialize in the fields of finance, software and education.
+	     Our diverse interests drive our investment philosophy of long term growth in
+	     fields that have not yet matured.
+	     Our passion is finding new opportunities that benefit society in a sustainable fashion.
+      </p>
+
+      <h3>Contact Us</h3>
+      <p>zratomedia AT gmail DOT com</p>
+    </div>
+
+    <div class="content" id="projectsDiv" style="display: none;">
+
+     <h3>Projects we have worked on</h3>
+      <ul>
+    <li><a href="http://www.aims-unm.org">Albuquerque Institute</a></li>
+    <li><a href="http://equitystat.s3.amazonaws.com/index.html">EquityStat</a></li>
+    <li><a href="http://www.lightkeeper.com">Lightkeeper</a></li>
+    <li><a href="http://milewise.com">MileWise</a></li>
+	   <li><a href="http://mylingo.com">MyLingo</a></li>
+
+      </ul>
+
+
+
+    </div>
+
+  </body>
+</html>
